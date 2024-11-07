@@ -6,12 +6,12 @@ def string_info(stringInput = '' ):  # принимает аргумент - с�
     count_calls()
     return (len(stringInput),stringInput.upper(),stringInput.lower())
 
-
-def is_contains(stringInput = '' , listInput = []):  # принимает два аргумента: строку и список, и возвращает True, если строка находится в этом списке, False - если отсутствует. Регистром строки при проверке пренебречь: UrbaN ~ URBAN.
+def is_contains(stringInput = '' , listInput = None):  # принимает два аргумента: строку и список, и возвращает True, если строка находится в этом списке, False - если отсутствует. Регистром строки при проверке пренебречь: UrbaN ~ URBAN.
     count_calls()
-    for i in listInput:
-        if stringInput.upper() == i.upper():
-            return True
+    if listInput != None:
+        for i in listInput:
+            if stringInput.upper() == i.upper():
+                return True
     return False
 
 calls = 0
