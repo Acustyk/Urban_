@@ -28,7 +28,7 @@ class Animal: #- класс описывающий животных.
         print(self.sound)
 
 class Bird (Animal):  #- класс описывающий птиц
-    def __init__(self,speed_: int,DANGER: int):
+    def __init__(self,speed_: int,DANGER: int = 0):
         super().__init__(speed_,DANGER)
         self.beak = True         #- наличие клюва
     def lay_eggs(self):      #, который выводит строку
@@ -38,6 +38,8 @@ class Bird (Animal):  #- класс описывающий птиц
 class AquaticAnimal (Animal):    # - класс описывающий плавающего животного.
     def __init__(self, speed_: int,DANGER: int = 3):
         super().__init__(speed_,DANGER)
+        if self._DEGREE_OF_DANGER < 3 :
+            self._DEGREE_OF_DANGER = 3
     def dive_in(self, dz):
         self._cords[2] -= abs(dz)* int(self.speed/2)  #Этот метод должен всегда уменьшать координату z в _coords.
 #Скорость движения при нырянии должна уменьшаться в 2 раза, в отличии от обычного движения.(speed / 2)
@@ -45,8 +47,10 @@ class AquaticAnimal (Animal):    # - класс описывающий плав�
 class PoisonousAnimal (Animal): #- класс описывающий ядовитых животных.
     def __init__(self, speed_: int,DANGER: int = 8):
         super().__init__(speed_, DANGER)
+        if self._DEGREE_OF_DANGER < 8 :
+            self._DEGREE_OF_DANGER = 8
 
-class Duckbill (PoisonousAnimal, Bird, AquaticAnimal):
+class Duckbill (Bird, PoisonousAnimal, AquaticAnimal):
     def __init__(self, speed_: int):
         super().__init__(speed_)
         self.sound = "Click-click-click" #- звук, который издаёт утконос
