@@ -20,7 +20,7 @@ class Product:
         self.category = category
 
     def __str__(self):
-        t=f' {self.name}, {self.weight}, {self.category} \n'
+        t=f'{self.name},{self.weight},{self.category}\n'
         return t
 """
 Объекты класса Shop будут создаваться следующим образом - Shop() и обладать следующими свойствами:
@@ -35,24 +35,21 @@ class Shop:
     __file_name = 'products.txt'
 
     def get_products(self):
-        file = open(self.__file_name,"r")
-        txt = file.read()
-        file.close()
+        with open(self.__file_name, 'r') as file:
+            txt = file.read()
         return txt
 
     def add(self,*products):
-        file = open(self.__file_name,  "r")
-        txt = file.read()
-        file.close()
-        file = open(self.__file_name, "a")
-        for i in products:
-            #if i.name not in txt: # проверка на совпадение имени
-            if i.__str__() not in txt: # проверка на полное соответствие
-                file.write(i.__str__())
-                txt += i.__str__()
-            else:
-                print(f'Продукт {i.name} уже есть в магазине')
-        file.close()
+        with open(self.__file_name, 'r') as file:
+            txt = file.read()
+        with open(self.__file_name, 'a') as file:
+            for i in products:
+                if i.__str__() not in txt: # проверка на полное соответствие
+                    file.write(i.__str__())
+                    txt += i.__str__()
+                else:
+                    print(f'Продукт {i.name} уже есть в магазине')
+
 
 #Пример работы программы:
 s1 = Shop()
