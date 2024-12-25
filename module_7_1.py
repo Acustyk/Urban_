@@ -42,14 +42,25 @@ class Shop:
     def add(self,*products):
         with open(self.__file_name, 'r') as file:
             txt = file.read()
-        with open(self.__file_name, 'a') as file:
-            for i in products:
-                if i.__str__() not in txt: # проверка на полное соответствие
-                    file.write(i.__str__())
-                    txt += i.__str__()
-                else:
-                    print(f'Продукт {i.name} уже есть в магазине')
-
+        listShop = txt.split()
+        fullProducts = []
+        for i in listShop:# СОЗДАДИМ СПИСОК ПРОДУКТОВ НА СКЛАДЕ
+            listProduct = i.split(',')
+            fullProducts.append(Product(listProduct[0], float(listProduct[1]), listProduct[2]))
+        for i in products:  # ДОБАВИМ НОВЫЕ
+            if  i.name not in txt: # проверка на Имя
+                fullProducts.append(i)
+                txt += i.__str__()
+            else:
+                for j in fullProducts:
+                    if j.name == i.name :
+                        j.weight += i.weight
+                        print(f'Продукт {j.name} уже есть в магазине. Итоговый вес {j.weight}.')
+        txt = ""
+        for i in fullProducts:
+            txt += i.__str__()
+        with open(self.__file_name, 'w') as file:
+            file.write(txt)
 
 #Пример работы программы:
 s1 = Shop()
