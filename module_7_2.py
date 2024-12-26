@@ -17,17 +17,14 @@ def custom_write(file_name: str, strings: list):
             0, 16 - номера байт, на которых началась запись строк.
             'Text for tell.', 'Используйте кодировку utf-8.' - сами строки.
     """
-    file= open(file_name,'w', encoding='utf-8')
     nambeLine = 1
-    nambeByte = 0
     dictFile = {}
-    for txtLine in info:
-        file.write(txtLine+"\n")
-        dictFile.update([((nambeLine,nambeByte), txtLine)] )
-        nambeLine += 1
-        nambeByte = file.tell()
-
-    file.close()
+    with open(file_name, 'w', encoding='utf-8') as file:
+        for txtLine in strings:
+            nambeByte = file.tell()
+            file.write(txtLine+"\n")
+            dictFile[(nambeLine,nambeByte)]=txtLine
+            nambeLine += 1
     return dictFile
 
 info = [
