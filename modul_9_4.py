@@ -26,9 +26,9 @@ def get_advanced_writer(file_name):
     def write_everything(*data_set):
         def str_x(x):
             types_data = str(type(x))
-            if 'str' in types_data or 'float' in types_data:
+            if 'str' in types_data :
                 return ' ' + x
-            if 'int' in types_data:
+            if 'int' in types_data or 'float' in types_data:
                 return ' ' +  str(x)
             if 'dict' in types_data:
                 str_ = str_x(list(x.keys()))
@@ -43,13 +43,8 @@ def get_advanced_writer(file_name):
                 file.write(str_x(x))
     return write_everything
 
-
-
 write = get_advanced_writer('example.txt')
 write('Это строчка', ['А', 'это', 'уже', 'число', 5, 'в', 'списке',7.0])
-
-
-
 
 '''
 Метод __call__:
@@ -59,17 +54,22 @@ write('Это строчка', ['А', 'это', 'уже', 'число', 5, 'в',
 в коллекции можете использовать функцию choice из модуля random.
 '''
 
-
-
-
-
-
-#from random import choice
+from random import choice
 
 # Ваш класс здесь
+class MysticBall():
+    words = []
+    def __init__(self, *collection):
+        self.words = collection
+        return
+    def __call__(self):
+        i = choice(self.words)
+        return i
 
-#first_ball = MysticBall('Да', 'Нет', 'Наверное')
 
-#print(first_ball())
-#print(first_ball())
-#print(first_ball())
+
+
+first_ball = MysticBall('Да', 'Нет', 'Наверное')
+print(first_ball())
+print(first_ball())
+print(first_ball())
